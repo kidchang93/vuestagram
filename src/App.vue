@@ -19,6 +19,13 @@
   <button @click="$store.commit('changeName')">버튼</button>
   <button @click="$store.commit('changeAge', 10)">버튼</button>
 
+  <p>{{$store.state.more}}</p>
+<!--  actions를 실행해달라고 하는 함수 -->
+  <button @click="$store.dispatch('getData')">더보기 버튼</button>
+
+<!--  computed -->
+
+
   <Container :postingData="postingData"
              :step="step"
              :image="image"
@@ -52,6 +59,7 @@ export default {
   components: {
     Container,
   },
+
   data(){
     return{
       postingData: PostingData,
@@ -63,7 +71,16 @@ export default {
       myfilter:'',
     }
   },
+  computed:{
+    now2(){
+      return new Date()
+    },
+  },
   methods:{
+    now1(){
+      return new Date()
+    },
+
     more(){
       axios.get(`https://codingapple1.github.io/vue/more${this.moreNumber}.json`)
           .then((result) => {
