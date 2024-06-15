@@ -1,30 +1,74 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+  <div class="header">
+    <ul class="header-button-left">
+      <li>Cancel</li>
+    </ul>
+    <ul class="header-button-right">
+      <li>Next</li>
+    </ul>
+    <img src="./assets/vue.svg" class="logo"  alt=""/>
   </div>
-  <HelloWorld msg="Vite + Vue" />
+
+  <Container :postingData="postingData" :step="step"/>
+  <button @click="more">더보기</button>
+
+
+  <div class="footer">
+    <ul class="footer-button-plus">
+      <input type="file" id="file" class="inputfile" />
+      <label for="file" class="input-plus">+</label>
+    </ul>
+  </div>
+<!--  탭 메뉴 쉽게 하는 법-->
+  <div v-if="step == 0">내용0</div>
+  <div v-if="step == 1">내용1</div>
+  <div v-if="step == 2">내용2</div>
+  <button @click="step = 0">버튼0</button>
+  <button @click="step = 1">버튼1</button>
+  <button @click="step = 2">버튼2</button>
+  <div style="margin-top: 500px"></div>
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+<script>
+import Container from "./components/Container.vue";
+import PostingData from "./assets/PostingData.js";
+import axios from "axios";
+export default {
+  name: 'App',
+  components: {
+    Container,
+  },
+  data(){
+    return{
+      postingData: PostingData,
+      moreNumber: 0,
+      step: 0,
+    }
+  },
+  methods:{
+    more(){
+      axios.get(`https://codingapple1.github.io/vue/more${this.moreNumber}.json`)
+          .then((result) => {
+            // 요청 성공시 실행할 코드
+            console.log(result)
+            this.postingData.push(result.data);
+            this.moreNumber++;
+          })
+      //
+      // axios.post('url', {name:'kim'})
+      //     .then()
+      //     .catch((error)=>{
+      //       error
+      //     })
+    }
+
+  }
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
+</script>
+
+
+
+<style>
+
+
 </style>
