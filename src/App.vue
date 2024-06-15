@@ -13,6 +13,7 @@
   <Container :postingData="postingData"
              :step="step"
              :image="image"
+             :filter="filter"
               @write="content = $event"/>
   <button @click="more">더보기</button>
 
@@ -49,6 +50,8 @@ export default {
       step: 0,
       image: '',
       content:'',
+      filter:'',
+      myfilter:'',
     }
   },
   methods:{
@@ -86,13 +89,17 @@ export default {
         date: "May 15",
         liked: false,
         content: this.content,
-        filter: "perpetua"
+        filter: this.myfilter
       };
       this.postingData.unshift(myImage);
       this.step = 0;
     }
   },
-
+  mounted() {
+    this.emitter.on('clickBox', (a) => {
+      this.myfilter = a;
+    })
+  }
 
 
 }

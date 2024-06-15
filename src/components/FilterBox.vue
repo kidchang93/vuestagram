@@ -1,7 +1,11 @@
 <template>
-  <div :class="filter +` filter-item`"
-       :style="`background-image:url(${image})`">
+  <div @click="fire"
+       :class="filter +` filter-item`"
+       :style="`background-image:url(${image})`"
+       >
+
     <slot></slot>
+
 <!-- 부모가 자식 데이터 쓸때-->
 <!--    <slot :msg="msg"></slot>-->
 
@@ -21,7 +25,12 @@ export default {
     return{
       msg: 'hello',
     }
-  }
+  },
+  methods:{
+    fire(){
+      this.emitter.emit('clickBox', this.filter)
+    }
+  },
 
 }
 </script>
