@@ -9,7 +9,16 @@
     <div v-if="$props.step == 1">
       <div class="upload-image" :style="`background-image: url('${$props.image}')`"></div>
       <div class="filters">
-        <FilterBox />
+        <FilterBox v-for="filter in filterList"
+                   :key="filter"
+                   :image="image"
+                   :filter="filter">
+        <!-- slot에 넣는 데이터 (HTML 에서만)-->
+<!--          <template v-slot:a> 데이터 </template>-->
+<!--          <template v-slot:b> 데이터 </template>-->
+          {{ filter }}
+<!--          <template v-slot:default="msg"> <span>{{msg.msg}}</span> </template>-->
+        </FilterBox>
       </div>
     </div>
     <!-- 글작성페이지 -->
@@ -23,10 +32,13 @@
 </template>
 <script>
 import Post from "./Post.vue";
-
+import FilterBox from "./FilterBox.vue";
 export default {
   name: "Container",
-  components: {Post},
+  components: {
+    Post,
+    FilterBox
+  },
   props:{
     postingData: Array,
     step: Number,
@@ -34,7 +46,9 @@ export default {
   },
   data(){
     return {
-      content: '',
+      filterList: [ "aden", "_1977", "brannan", "brooklyn", "clarendon", "earlybird", "gingham", "hudson",
+        "inkwell", "kelvin", "lark", "lofi", "maven", "mayfair", "moon", "nashville", "perpetua",
+        "reyes", "rise", "slumber", "stinson", "toaster", "valencia", "walden", "willow", "xpro2"],
     }
   }
 }
