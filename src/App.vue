@@ -11,19 +11,23 @@
   </div>
 
 <!--  vuex 사용법-->
-  <h4> 안녕 {{ $store.state.name }}</h4>
-  <p>나이 : {{ $store.state.age }}</p>
+<!--  <h4> 안녕 {{ $store.state.name }}</h4>-->
+<!--  <p>나이 : {{ $store.state.age }}</p>-->
 <!--  아래처럼 사용하면 안된다. -->
 <!--  <button @click="$store.state.name = '이' ">버튼</button>-->
 <!-- 이렇게 짜자  store에게 부탁해서 state가 변경하게 한다. -->
-  <button @click="$store.commit('changeName')">버튼</button>
-  <button @click="$store.commit('changeAge', 10)">버튼</button>
+<!--  <button @click="$store.commit('changeName')">버튼</button>-->
+<!--  <button @click="$store.commit('changeAge', 10)">버튼</button>-->
 
-  <p>{{$store.state.more}}</p>
+<!--  <p>{{$store.state.more}}</p>-->
 <!--  actions를 실행해달라고 하는 함수 -->
-  <button @click="$store.dispatch('getData')">더보기 버튼</button>
+<!--  <button @click="$store.dispatch('getData')">더보기 버튼</button>-->
 
-<!--  computed -->
+<!--  computed 계산 결과 저장용 -->
+<!--  <p>{{ now1() }}     {{ counter }}</p>-->
+<!--  <button @click="counter++">버튼1</button>-->
+<!--  <p>{{ now2 }}       {{ counter }}</p>-->
+<!--  <button @click="counter++">버튼2</button>-->
 
 
   <Container :postingData="postingData"
@@ -69,9 +73,14 @@ export default {
       content:'',
       filter:'',
       myfilter:'',
+      counter:0,
     }
   },
   computed:{
+    name(){
+      return this.$store.state.name
+    },
+
     now2(){
       return new Date()
     },
