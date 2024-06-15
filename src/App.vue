@@ -13,8 +13,9 @@
 <!--  vuex 사용법-->
   <h4> 안녕 {{ $store.state.name }}</h4>
 <!--  아래처럼 사용하면 안된다. -->
-  <button @click="$store.state.name = '이' ">버튼</button>
-
+<!--  <button @click="$store.state.name = '이' ">버튼</button>-->
+<!-- 이렇게 짜자  store에게 부탁해서 state가 변경하게 한다. -->
+  <button @click="$store.commit('changeName')">버튼</button>
   <Container :postingData="postingData"
              :step="step"
              :image="image"
