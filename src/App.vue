@@ -10,6 +10,11 @@
     <img src="./assets/vue.svg" class="logo"  alt=""/>
   </div>
 
+<!--  vuex 사용법-->
+  <h4> 안녕 {{ $store.state.name }}</h4>
+<!--  아래처럼 사용하면 안된다. -->
+  <button @click="$store.state.name = '이' ">버튼</button>
+
   <Container :postingData="postingData"
              :step="step"
              :image="image"
