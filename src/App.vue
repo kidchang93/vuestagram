@@ -16,7 +16,7 @@
 <!--  아래처럼 사용하면 안된다. -->
 <!--  <button @click="$store.state.name = '이' ">버튼</button>-->
 <!-- 이렇게 짜자  store에게 부탁해서 state가 변경하게 한다. -->
-<!--  <button @click="$store.commit('changeName')">버튼</button>-->
+  <button @click="changeName">버튼</button>
 <!--  <button @click="$store.commit('changeAge', 10)">버튼</button>-->
 
 <!--  <p>{{$store.state.more}}</p>-->
@@ -28,6 +28,8 @@
 <!--  <button @click="counter++">버튼1</button>-->
 <!--  <p>{{ now2 }}       {{ counter }}</p>-->
 <!--  <button @click="counter++">버튼2</button>-->
+
+  <p> {{ name }} {{ age }} {{ 내이름 }}</p>
 
 
   <Container :postingData="postingData"
@@ -52,12 +54,16 @@
 <!--  <button @click="step = 1">버튼1</button>-->
 <!--  <button @click="step = 2">버튼2</button>-->
 <!--  <div style="margin-top: 500px"></div>-->
+
 </template>
 
 <script>
 import Container from "./components/Container.vue";
 import PostingData from "./assets/PostingData.js";
 import axios from "axios";
+import {mapActions, mapMutations, mapState} from "vuex";
+
+
 export default {
   name: 'App',
   components: {
@@ -77,18 +83,28 @@ export default {
     }
   },
   computed:{
+    // return을 적어줘야된다.
     name(){
       return this.$store.state.name
     },
+    // 스프레드 연산자로 store에 저장된 변수들 다 불러오기.
+    ...mapState([ "name" , "age", "likes"]),
+    ...mapState({  내이름 : 'name'}),
+
 
     now2(){
       return new Date()
     },
   },
   methods:{
+    // 스프레드 연산자로 store에 저장된 함수들 쉽게 다 불러오기
+    ...mapMutations(['setMore', 'likes', 'changeName']),
+    ...mapActions,
     now1(){
       return new Date()
     },
+    // mutations 함수들 다 불러오기.
+
 
     more(){
       axios.get(`https://codingapple1.github.io/vue/more${this.moreNumber}.json`)
